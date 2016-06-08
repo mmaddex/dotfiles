@@ -1,0 +1,214 @@
+
+" An example for a vimrc file.
+"
+" Maintainer:	Bram Moolenaar <Bram@vim.org>
+" Last change:	2008 Dec 17
+"
+" To use it, copy it to
+"     for Unix and OS/2:  ~/.vimrc
+"	      for Amiga:  s:.vimrc
+"  for MS-DOS and Win32:  $VIM\_vimrc
+"	    for OpenVMS:  sys$login:.vimrc
+
+" start of text
+
+" Vundle
+set nocompatible " Required by vundle
+filetype off     " Required by vundle
+
+" set the run time path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'christoomey/vim-tmux-navigator'
+
+Plugin 'tpope/vim-fugitive'
+
+Plugin 'tpope/vim-surround'
+Plugin 'Raimondi/delimitMate'
+Plugin 'DataWraith/auto_mkdir'
+"Plugin 'altercation/vim-colors-solarized'
+
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'groenewege/vim-less'
+Plugin 'slim-template/vim-slim'
+Plugin 'AndrewRadev/vim-eco.git'
+
+Plugin 'christoomey/vim-tmux-runner'
+"Plugin 'thoughtbot/vim-rspec'
+Plugin 'gabebw/vim-spec-runner'
+
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+let mapleader = "\<Space>"
+nmap <leader>vi :tabedit ~/.vimrc<cr>
+"TODO make this happen when this file is saved
+nmap <leader>so :source $MYVIMRC<cr>
+
+" automatically rebalance windows on vim resize
+autocmd VimResized * :wincmd ="
+" zoom a vim pane, <C-w>= to re-balance
+nnoremap <leader>- :wincmd _<cr>:wincmd \|<cr>
+nnoremap <leader>= :wincmd =<cr>
+
+" jump to start/end of line
+nmap <leader>h ^
+nmap <leader>l $
+" move up and down a wrapped line
+nmap k gk
+nmap j gj
+
+" nmap <leader>v :vnew <C-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
+" nmap <leader>e :e <C-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
+" nmap <leader>s :sp <C-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
+" nmap <leader>t :tabe <C-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
+" nmap <leader>co ggVG<C-c>
+nmap <leader>/ :noh<cr>
+nnoremap <C-Y> :CtrlPTag<CR>
+
+vmap <C-v> :!pbpaste<CR>
+vmap <C-x> :!pbcopy<CR>  
+vmap <C-c> :w !pbcopy<CR><CR> 
+
+nnoremap <leader>irb :VtrOpenRunner {'orientation': 'h', 'percentage': 50, 'cmd': 'irb'}<cr>
+map <leader>rf :VtrSendFile<cr>
+map <leader>rl :VtrSendLinesToRunner<cr>
+map <leader>ro :VtrOpenRunner<cr>
+map <leader>ra :VtrAttachToPane<cr>
+
+"requires flow control mode to be disabled (e.g. in .bashrc)
+"imap <C-s> <esc>:w<CR>
+
+"this doesn't seem to be working
+inoremap <C-Space> <Esc>
+inoremap <C-@> <ESC>
+vnoremap <C-Space> <Esc>
+vnoremap <C-@> <ESC>
+
+" Make CtrlP use ag for listing the files. Way faster and no useless files.
+let g:ctrlp_user_command = 'ag %s -l --hidden --nocolor -g ""'
+let g:ctrlp_use_caching = 0
+
+"vim-spec-runner configuration
+let g:spec_runner_dispatcher = 'call VtrSendCommand("{command}")'
+map <Leader>tt <Plug>RunCurrentSpecFile
+map <Leader>ts <Plug>RunFocusedSpec
+map <Leader>tl <Plug>RunMostRecentSpec
+
+" colors
+syntax enable
+let g:solarized_termcolors=256
+"colorscheme solarized
+
+"====[ Make the 101st column stand out ]====================
+highlight ColorColumn ctermbg=magenta
+call matchadd('ColorColumn', '\%101v', 100)
+"===========================================================
+
+" Display extra whitespace
+set list listchars=tab:»·,trail:·
+
+set number
+set tabstop=8
+set softtabstop=0
+set shiftwidth=2
+set expandtab
+set smarttab
+set autoread
+set backspace=indent,eol,start
+set scrolloff=4
+set expandtab
+set autowrite
+
+autocmd Filetype help nmap <buffer> q :q<CR>
+
+" When started as "evim", evim.vim will already have done these settings.
+if v:progname =~? "evim"
+  finish
+endif
+
+" Use Vim settings, rather than Vi settings (much better!).
+" This must be first, because it changes other options as a side effect.
+set nocompatible
+
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+
+if has("vms")
+  set nobackup		" do not keep a backup file, use versions instead
+else
+  set backup		" keep a backup file
+endif
+set history=50		" keep 50 lines of command line history
+set ruler		" show the cursor position all the time
+set showcmd		" display incomplete commands
+set incsearch		" do incremental searching
+
+" For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
+" let &guioptions = substitute(&guioptions, "t", "", "g")
+
+" Don't use Ex mode, use Q for formatting
+map Q gq
+
+" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
+" so that you can undo CTRL-U after inserting a line break.
+inoremap <C-U> <C-G>u<C-U>
+
+" In many terminal emulators the mouse works just fine, thus enable it.
+if has('mouse')
+  set mouse=a
+endif
+
+" Switch syntax highlighting on, when the terminal has colors
+" Also switch on highlighting the last used search pattern.
+if &t_Co > 2 || has("gui_running")
+  syntax on
+  set hlsearch
+endif
+
+" Only do this part when compiled with support for autocommands.
+if has("autocmd")
+
+  " Enable file type detection.
+  " Use the default filetype settings, so that mail gets 'tw' set to 72,
+  " 'cindent' is on in C files, etc.
+  " Also load indent files, to automatically do language-dependent indenting.
+  filetype plugin indent on
+
+  " Put these in an autocmd group, so that we can delete them easily.
+  augroup vimrcEx
+  au!
+
+  " For all text files set 'textwidth' to 78 characters.
+  autocmd FileType text setlocal textwidth=78
+
+  " When editing a file, always jump to the last known cursor position.
+  " Don't do it when the position is invalid or when inside an event handler
+  " (happens when dropping a file on gvim).
+  " Also don't do it when the mark is in the first line, that is the default
+  " position when opening a file.
+  autocmd BufReadPost *
+    \ if line("'\"") > 1 && line("'\"") <= line("$") |
+    \   exe "normal! g`\"" |
+    \ endif
+
+  augroup END
+
+else
+
+  set autoindent		" always set autoindenting on
+
+endif " has("autocmd")
+
+" Convenient command to see the difference between the current buffer and the
+" file it was loaded from, thus the changes you made.
+" Only define it when not defined already.
+if !exists(":DiffOrig")
+  command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
+		  \ | wincmd p | diffthis
+endif
