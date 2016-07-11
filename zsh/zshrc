@@ -5,13 +5,17 @@ alias uh='cd ~/Repositories/upperhand/uh'
 alias rs-uh='~/bin/upperhand-rails s'
 alias rc-uh='~/bin/upperhand-rails c'
 alias rk-uh='~/bin/upperhand-rake'
+alias z='zeus'
+
+alias js='npm test'
+alias js-debug='npm run testdebug'
 
 alias h='heroku'
 alias hc='h run console -a'
+alias hr='h releases -a'
 alias qascale='h scale worker=1 scheduler=1 -a'
 alias 0scale='h scale worker=0 scheduler=0 -a'
 alias hsql='h pg:psql -a'
-alias lsql='psql sh3_development'
 
 alias tm='tmux'
 alias tmn='tmux new -s'
@@ -23,7 +27,7 @@ gitFileDiff() {
   git diff-tree --no-commit-id --name-only -r HEAD..$1
 }
 
-source ~/bin/git-completion.bash # run if not working
+#source ~/bin/git-completion.bash # run if not working
 
 fpath=(~/.zsh $fpath)
 
