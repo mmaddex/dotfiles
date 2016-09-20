@@ -1,0 +1,8 @@
+# This is Git's per-user configuration file.
+[user]
+# Please adapt and uncomment the following lines:
+	name = mmaddex
+	email = matt@getupperhand.com
+[core]
+	editor = vim
+	excludesfile = /Users/matt/.gitignore_global

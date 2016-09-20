@@ -1,10 +1,12 @@
 
+export PATH="/usr/local/bin:$PATH" # use brew git
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
-alias uh='cd ~/Repositories/upperhand/uh'
+alias uh='cd ~/Repos/upperhand.rb'
 alias rs-uh='~/bin/upperhand-rails s'
 alias rc-uh='~/bin/upperhand-rails c'
 alias rk-uh='~/bin/upperhand-rake'
+alias zstart-uh='~/bin/upperhand-zeus'
 alias z='zeus'
 
 alias js='npm test'

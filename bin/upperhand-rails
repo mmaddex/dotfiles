@@ -1,3 +1,3 @@
 #!/bin/bash
 
-~/bin/upperhand-env bundle exec rails $*
+~/bin/upperhand-env bundle exec rails $* -b 0.0.0.0

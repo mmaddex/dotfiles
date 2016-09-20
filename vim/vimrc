@@ -33,10 +33,12 @@ Plugin 'Raimondi/delimitMate'
 Plugin 'DataWraith/auto_mkdir'
 "Plugin 'altercation/vim-colors-solarized'
 
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'groenewege/vim-less'
-Plugin 'slim-template/vim-slim'
+"Plugin 'kchmck/vim-coffee-script'
+"Plugin 'groenewege/vim-less'
+"Plugin 'slim-template/vim-slim'
 Plugin 'AndrewRadev/vim-eco.git'
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
 
 Plugin 'christoomey/vim-tmux-runner'
 "Plugin 'thoughtbot/vim-rspec'
@@ -114,6 +116,7 @@ call matchadd('ColorColumn', '\%101v', 100)
 set list listchars=tab:»·,trail:·
 
 set number
+set relativenumber
 set tabstop=8
 set softtabstop=0
 set shiftwidth=2
@@ -124,6 +127,7 @@ set backspace=indent,eol,start
 set scrolloff=4
 set expandtab
 set autowrite
+set laststatus=2
 
 autocmd Filetype help nmap <buffer> q :q<CR>
 
