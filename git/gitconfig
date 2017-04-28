@@ -2,7 +2,7 @@
 [user]
 # Please adapt and uncomment the following lines:
 	name = mmaddex
-	email = matt@getupperhand.com
+	email = sayhallo@mattmaddex.com
 [core]
 	editor = vim
 	excludesfile = /Users/matt/.gitignore_global
