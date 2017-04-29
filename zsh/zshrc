@@ -1,6 +1,7 @@
 
 export PATH="/usr/local/bin:$PATH" # use brew git
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+export PATH="/opt/local/bin:/opt/local/sbin:$PATH" # for macports
 
 alias uh='cd ~/Repos/upperhand.rb'
 alias rs-uh='~/bin/upperhand-rails s'
