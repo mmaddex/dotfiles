@@ -27,6 +27,7 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'christoomey/vim-tmux-navigator'
 
 Plugin 'tpope/vim-fugitive'
+Plugin 'airblade/vim-gitgutter'
 
 Plugin 'tpope/vim-surround'
 Plugin 'Raimondi/delimitMate'
@@ -49,6 +50,7 @@ filetype plugin indent on    " required
 
 let mapleader = "\<Space>"
 nmap <leader>vi :tabedit ~/.vimrc<cr>
+nmap <leader>al :tabedit ~/.oh-my-zsh/custom/aliases.zsh<cr>
 "TODO make this happen when this file is saved
 nmap <leader>so :source $MYVIMRC<cr>
 
@@ -64,6 +66,7 @@ nmap <leader>l $
 " move up and down a wrapped line
 nmap k gk
 nmap j gj
+nmap cp :let @" = expand("%")"<CR>
 
 " nmap <leader>v :vnew <C-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
 " nmap <leader>e :e <C-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
@@ -73,9 +76,8 @@ nmap j gj
 nmap <leader>/ :noh<cr>
 nnoremap <C-Y> :CtrlPTag<CR>
 
-vmap <C-v> :!pbpaste<CR>
-vmap <C-x> :!pbcopy<CR>  
-vmap <C-c> :w !pbcopy<CR><CR> 
+vmap <C-x> :!pbcopy<CR>
+vmap <C-c> :w !pbcopy<CR><CR>
 
 nnoremap <leader>irb :VtrOpenRunner {'orientation': 'h', 'percentage': 50, 'cmd': 'irb'}<cr>
 map <leader>rf :VtrSendFile<cr>
@@ -101,6 +103,10 @@ let g:spec_runner_dispatcher = 'call VtrSendCommand("{command}")'
 map <Leader>tt <Plug>RunCurrentSpecFile
 map <Leader>ts <Plug>RunFocusedSpec
 map <Leader>tl <Plug>RunMostRecentSpec
+
+"git stuffs make thise work
+"map <Leader>gdm let g:gitgutter_diff_base = 'master'<cr>:e!<cr>
+"map <Leader>gdh let g:gitgutter_diff_base = 'HEAD'<cr>:e!<cr>
 
 " colors
 syntax enable
@@ -128,6 +134,8 @@ set scrolloff=4
 set expandtab
 set autowrite
 set laststatus=2
+
+set ignorecase
 
 autocmd Filetype help nmap <buffer> q :q<CR>
 
