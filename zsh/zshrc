@@ -24,6 +24,7 @@ alias gh='git push'
 alias gs='git status'
 alias gd='git diff'
 alias gsh='git stash'
+alias gshl='git stash list'
 alias gshp='git stash pop'
 
 alias api_server='export LOCAL_AUTHENTICATION=true && rails s -p 3001 -b 0.0.0.0'
