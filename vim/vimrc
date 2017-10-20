@@ -39,6 +39,7 @@ Plugin 'DataWraith/auto_mkdir'
 "Plugin 'slim-template/vim-slim'
 Plugin 'AndrewRadev/vim-eco.git'
 Plugin 'pangloss/vim-javascript'
+Plugin 'vim-syntastic/syntastic'
 Plugin 'mxw/vim-jsx'
 
 Plugin 'christoomey/vim-tmux-runner'
@@ -53,6 +54,7 @@ nmap <leader>vi :tabedit ~/.vimrc<cr>
 nmap <leader>al :tabedit ~/.oh-my-zsh/custom/aliases.zsh<cr>
 "TODO make this happen when this file is saved
 nmap <leader>so :source $MYVIMRC<cr>
+nmap <leader>no :tabedit ~/Documents/NOTES/
 
 " automatically rebalance windows on vim resize
 autocmd VimResized * :wincmd ="
@@ -85,6 +87,8 @@ map <leader>rl :VtrSendLinesToRunner<cr>
 map <leader>ro :VtrOpenRunner<cr>
 map <leader>ra :VtrAttachToPane<cr>
 
+map <leader>lo :%bd\|e#<cr>
+
 "requires flow control mode to be disabled (e.g. in .bashrc)
 "imap <C-s> <esc>:w<CR>
 
@@ -103,6 +107,22 @@ let g:spec_runner_dispatcher = 'call VtrSendCommand("{command}")'
 map <Leader>tt <Plug>RunCurrentSpecFile
 map <Leader>ts <Plug>RunFocusedSpec
 map <Leader>tl <Plug>RunMostRecentSpec
+
+set statusline=%f%h%m%r
+" Syntastic settings
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+set statusline+=%=%c,%l/%L\ %P
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_eslint_exe = '$(npm bin)/eslint'
+let g:syntastic_ruby_checkers = ['rubocop']
 
 "git stuffs make thise work
 "map <Leader>gdm let g:gitgutter_diff_base = 'master'<cr>:e!<cr>

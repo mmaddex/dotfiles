@@ -5,11 +5,6 @@ export PATH="/opt/local/bin:/opt/local/sbin:$PATH" # for macports
 
 alias soa='source ~/.oh-my-zsh/custom/aliases.zsh'
 
-alias uh='cd ~/Repos/upperhand.rb'
-alias rs-uh='~/bin/upperhand-rails s'
-alias rc-uh='~/bin/upperhand-rails c'
-alias rk-uh='~/bin/upperhand-rake'
-alias zstart-uh='~/bin/upperhand-zeus'
 alias z='zeus'
 
 alias gco='git checkout'
@@ -25,6 +20,7 @@ alias gh='git push'
 alias gs='git status'
 alias gd='git diff'
 alias gsh='git stash'
+alias gshl='git stash list'
 alias gshp='git stash pop'
 
 alias api_server='export LOCAL_AUTHENTICATION=true && rails s -p 3001 -b 0.0.0.0'
