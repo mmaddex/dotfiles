@@ -55,5 +55,6 @@ gitFileDiff() {
 
 #source ~/bin/git-completion.bash # run if not working
 
+alias zygrib='open /Applications/zyGrib_mac-8.0.1/zyGrib.app/Contents/MacOS/zyGrib'
 fpath=(~/.zsh $fpath)
 
