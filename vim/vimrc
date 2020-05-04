@@ -23,38 +23,62 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
+Plugin 'cosminadrianpopescu/vim-sql-workbench'
+
+Plugin 'vim-scripts/vim-auto-save'
+
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'christoomey/vim-tmux-navigator'
 
 Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
 
+Plugin 'SirVer/ultisnips'
 Plugin 'tpope/vim-surround'
 Plugin 'Raimondi/delimitMate'
 Plugin 'DataWraith/auto_mkdir'
-"Plugin 'altercation/vim-colors-solarized'
 
-"Plugin 'kchmck/vim-coffee-script'
-"Plugin 'groenewege/vim-less'
-"Plugin 'slim-template/vim-slim'
-Plugin 'AndrewRadev/vim-eco.git'
+Plugin 'christianrondeau/vim-base64'
+
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+
 Plugin 'pangloss/vim-javascript'
-Plugin 'vim-syntastic/syntastic'
-Plugin 'mxw/vim-jsx'
+"Plugin 'vim-syntastic/syntastic'
+"Plugin 'mxw/vim-jsx'
+Plugin 'leafgarland/typescript-vim'
 
 Plugin 'christoomey/vim-tmux-runner'
-"Plugin 'thoughtbot/vim-rspec'
-Plugin 'gabebw/vim-spec-runner'
+"Plugin 'groenewege/vim-less'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
 
+"enable AutoSave on Vim startup
+let g:auto_save = 5000
+
+let g:instant_markdown_autostart = 0
+
+" Trigger configuration. Do not use <tab> if you use
+" https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:UltiSnipsSnippetDirectories=["tsesnips"]
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+
 let mapleader = "\<Space>"
+nmap <leader>p :InstantMarkdownPreview<cr>
 nmap <leader>vi :tabedit ~/.vimrc<cr>
 nmap <leader>al :tabedit ~/.oh-my-zsh/custom/aliases.zsh<cr>
 "TODO make this happen when this file is saved
 nmap <leader>so :source $MYVIMRC<cr>
-nmap <leader>no :tabedit ~/Documents/NOTES/
+nmap <leader>no :tabedit ~/Repos/notes/<cr>
+nmap <leader>ds :put =strftime('**%Y-%m-%d**')<cr>
+nmap <leader>ts :put =strftime('%T')<cr>
+nmap <leader>gbu :!git add . && git commit -m save && git push<cr>
 
 " automatically rebalance windows on vim resize
 autocmd VimResized * :wincmd ="
@@ -70,6 +94,21 @@ nmap k gk
 nmap j gj
 nmap cp :let @" = expand("%")"<CR>
 
+" The Silver Searcher
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
+" bind \ (backward slash) to grep shortcut
+"command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+"nnoremap \ :Ag<SPACE>
+
 " nmap <leader>v :vnew <C-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
 " nmap <leader>e :e <C-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
 " nmap <leader>s :sp <C-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
@@ -81,6 +120,9 @@ nnoremap <C-Y> :CtrlPTag<CR>
 vmap <C-x> :!pbcopy<CR>
 vmap <C-c> :w !pbcopy<CR><CR>
 
+nmap <leader>ca ggVG
+":!pbcopy<CR>
+
 nnoremap <leader>irb :VtrOpenRunner {'orientation': 'h', 'percentage': 50, 'cmd': 'irb'}<cr>
 map <leader>rf :VtrSendFile<cr>
 map <leader>rl :VtrSendLinesToRunner<cr>
@@ -88,6 +130,9 @@ map <leader>ro :VtrOpenRunner<cr>
 map <leader>ra :VtrAttachToPane<cr>
 
 map <leader>lo :%bd\|e#<cr>
+
+vnoremap <leader>en :!python -c 'import sys,urllib;print urllib.quote(sys.stdin.read().strip())'<cr>
+vnoremap <leader>de :!python -c 'import sys,urllib;print urllib.unquote(sys.stdin.read().strip())'<cr>
 
 "requires flow control mode to be disabled (e.g. in .bashrc)
 "imap <C-s> <esc>:w<CR>
@@ -98,35 +143,34 @@ inoremap <C-@> <ESC>
 vnoremap <C-Space> <Esc>
 vnoremap <C-@> <ESC>
 
-" Make CtrlP use ag for listing the files. Way faster and no useless files.
-let g:ctrlp_user_command = 'ag %s -l --hidden --nocolor -g ""'
-let g:ctrlp_use_caching = 0
-
 "vim-spec-runner configuration
 let g:spec_runner_dispatcher = 'call VtrSendCommand("{command}")'
-map <Leader>tt <Plug>RunCurrentSpecFile
-map <Leader>ts <Plug>RunFocusedSpec
-map <Leader>tl <Plug>RunMostRecentSpec
+" map <Leader>tt <Plug>RunCurrentSpecFile
+" map <Leader>ts <Plug>RunFocusedSpec
+" map <Leader>tl <Plug>RunMostRecentSpec
 
 set statusline=%f%h%m%r
 " Syntastic settings
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-set statusline+=%=%c,%l/%L\ %P
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_javascript_eslint_exe = '$(npm bin)/eslint'
-let g:syntastic_ruby_checkers = ['rubocop']
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+" set statusline+=%=%c,%l/%L\ %P
+" 
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
+" 
+" let g:syntastic_javascript_checkers = ['eslint']
+" let g:syntastic_javascript_eslint_exe = '$(npm bin)/eslint'
+" let g:syntastic_ruby_checkers = ['rubocop']
 
 "git stuffs make thise work
 "map <Leader>gdm let g:gitgutter_diff_base = 'master'<cr>:e!<cr>
 "map <Leader>gdh let g:gitgutter_diff_base = 'HEAD'<cr>:e!<cr>
+
+" put this somewhere someday
+" :%!xmllint --format %
 
 " colors
 syntax enable
@@ -137,6 +181,10 @@ let g:solarized_termcolors=256
 highlight ColorColumn ctermbg=magenta
 call matchadd('ColorColumn', '\%101v', 100)
 "===========================================================
+
+" swap files
+set backupdir=./.backup,.,/tmp
+set directory=.,./.backup,/tmp
 
 " Display extra whitespace
 set list listchars=tab:»·,trail:·
@@ -157,7 +205,18 @@ set laststatus=2
 
 set ignorecase
 
+set conceallevel=2
+set nofoldenable
+"let g:vim_markdown_folding_disabled = 1
+"let g:vim_markdown_folding_level = 1
+let g:vim_markdown_new_list_item_indent = 2
+
 autocmd Filetype help nmap <buffer> q :q<CR>
+
+" SQL Workbench
+let g:sw_config_dir = '/Users/matt/.sqlworkbench/WbProfiles.xml'
+let g:sw_exe = '/Users/matt/Workbench-Build125/sqlwbconsole.sh'
+let g:sw_cache = '/Users/matt/.sqlworkbench/sw_cache'
 
 " When started as "evim", evim.vim will already have done these settings.
 if v:progname =~? "evim"
@@ -211,6 +270,7 @@ if has("autocmd")
   " 'cindent' is on in C files, etc.
   " Also load indent files, to automatically do language-dependent indenting.
   filetype plugin indent on
+  filetype plugin on
 
   " Put these in an autocmd group, so that we can delete them easily.
   augroup vimrcEx
