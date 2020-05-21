@@ -1,5 +1,5 @@
 
-export PATH="/usr/local/bin:$PATH" # use brew git
+export PATH="/usr/local/opt/libpq/bin:/usr/local/bin:$PATH" # use brew git
 
 alias soa='source ~/.oh-my-zsh/custom/aliases.zsh'
 
