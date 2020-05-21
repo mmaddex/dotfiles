@@ -1,11 +1,6 @@
 
 export PATH="/usr/local/bin:$PATH" # use brew git
 
-plugins=(
-  tmux
-  git
-)
-
 alias soa='source ~/.oh-my-zsh/custom/aliases.zsh'
 
 #alias gco='git checkout'
@@ -24,13 +19,12 @@ alias soa='source ~/.oh-my-zsh/custom/aliases.zsh'
 #alias gshl='git stash list'
 #alias gshp='git stash pop'
 
-alias filediff=gitFileDiff
-gitFileDiff() {
-  git diff-tree --no-commit-id --name-only -r HEAD..$1
-}
-
 #source ~/bin/git-completion.bash # run if not working
 
 alias zygrib='open /Applications/zyGrib_mac-8.0.1/zyGrib.app/Contents/MacOS/zyGrib'
 fpath=(~/.zsh $fpath)
+
+alias tm='tmux'	
+alias tmn='tmux new -s'	
+alias tma='tmux a -t'
 
