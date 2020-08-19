@@ -3,6 +3,8 @@ export PATH="/usr/local/opt/libpq/bin:/usr/local/bin:$PATH" # use brew git
 
 alias soa='source ~/.oh-my-zsh/custom/aliases.zsh'
 
+alias dwh='psql -h 127.0.0.1 -p 5439 -U mattmaddex -W -d datawarehouse'
+
 #alias gco='git checkout'
 #alias gcob='git checkout -b'
 #alias gg='git log'
