@@ -1,5 +1,10 @@
 
 export PATH="/usr/local/opt/libpq/bin:/usr/local/bin:$PATH" # use brew git
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 alias soa='source ~/.oh-my-zsh/custom/aliases.zsh'
 
@@ -30,3 +35,5 @@ alias tm='tmux'
 alias tmn='tmux new -s'	
 alias tma='tmux a -t'
 
+alias tenant_deploy='a0deploy import --config_file config.json --input_file tenant.yaml'
+alias tenant_backup='a0deploy export -c config.json -f yaml -o ./'

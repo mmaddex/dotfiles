@@ -25,7 +25,7 @@ Plugin 'VundleVim/Vundle.vim'
 
 " Plugin 'cosminadrianpopescu/vim-sql-workbench'
 
-Plugin 'vim-scripts/vim-auto-save'
+Plugin '907th/vim-auto-save'
 
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'christoomey/vim-tmux-navigator'
@@ -46,6 +46,8 @@ Plugin 'suan/vim-instant-markdown', {'rtp': 'after'}
 
 Plugin 'christoomey/vim-tmux-runner'
 
+Plugin 'tpope/vim-obsession'
+
 "Plugin 'SirVer/ultisnips'
 
 call vundle#end()            " required
@@ -53,10 +55,11 @@ filetype plugin indent on    " required
 
 "enable AutoSave on Vim startup
 let g:auto_save = 1
-let g:auto_save_no_updatetime = 1
-"let g:auto_save_in_insert_mode = 0
+"do not display the auto-save notification
+let g:auto_save_silent = 1
+let g:auto_save_events = ["InsertLeave", "TextChanged"]
 
-"let g:instant_markdown_autostart = 0
+let g:instant_markdown_autostart = 0
 let g:instant_markdown_slow = 1
 
 " Trigger configuration. Do not use <tab> if you use
@@ -71,6 +74,7 @@ let g:instant_markdown_slow = 1
 
 let mapleader = "\<Space>"
 nmap <leader>p :InstantMarkdownPreview<cr>
+nmap <leader>ps :InstantMarkdownStop<cr>
 nmap <leader>vi :tabedit ~/.vimrc<cr>
 nmap <leader>al :tabedit ~/.oh-my-zsh/custom/aliases.zsh<cr>
 "TODO make this happen when this file is saved
@@ -181,10 +185,6 @@ highlight ColorColumn ctermbg=magenta
 call matchadd('ColorColumn', '\%101v', 100)
 "===========================================================
 
-" swap files
-set backupdir=./.backup,.,/tmp
-set directory=.,./.backup,/tmp
-
 " Display extra whitespace
 set list listchars=tab:»·,trail:·
 
@@ -201,14 +201,15 @@ set scrolloff=4
 set expandtab
 set autowrite
 set laststatus=2
-
+set conceallevel=2
+set nofoldenable
 set ignorecase
 
 "let g:vim_markdown_folding_disabled = 1
 "let g:vim_markdown_folding_level = 1
 let g:vim_markdown_new_list_item_indent = 2
-set conceallevel=2
-set nofoldenable
+"let g:vim_markdown_conceal=2
+"let g:vim_markdown_conceal_code_blocks=2
 
 autocmd Filetype help nmap <buffer> q :q<CR>
 
@@ -303,3 +304,8 @@ if !exists(":DiffOrig")
   command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
 		  \ | wincmd p | diffthis
 endif
+
+" swap files
+set backupdir=.backup/,~/.backup/,/tmp//
+set directory=.swp/,~/.swp/,/tmp//
+set undodir=.undo/,~/.undo/,/tmp//
