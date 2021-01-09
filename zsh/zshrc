@@ -5,8 +5,21 @@ export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
+export PATH=$PATH:$HOME/bin
 
-alias soa='source ~/.oh-my-zsh/custom/aliases.zsh'
+bearer_token() {
+  export access_token=$2
+  export at=$2
+  export "$1_bearer"="Authorization: Bearer $2"
+}
+alias bt='bearer_token "auth"'
+alias mfa_bt='bearer_token "mfa"'
+
+saml() {
+  base64 -D <<< $1 | tidy -xml -i
+}
+
+alias soa='source ~/.zshrc'
 
 alias dwh='psql -h 127.0.0.1 -p 5439 -U mattmaddex -W -d datawarehouse'
 
@@ -31,9 +44,11 @@ alias dwh='psql -h 127.0.0.1 -p 5439 -U mattmaddex -W -d datawarehouse'
 alias zygrib='open /Applications/zyGrib_mac-8.0.1/zyGrib.app/Contents/MacOS/zyGrib'
 fpath=(~/.zsh $fpath)
 
+
 alias tm='tmux'	
 alias tmn='tmux new -s'	
 alias tma='tmux a -t'
 
 alias tenant_deploy='a0deploy import --config_file config.json --input_file tenant.yaml'
 alias tenant_backup='a0deploy export -c config.json -f yaml -o ./'
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi

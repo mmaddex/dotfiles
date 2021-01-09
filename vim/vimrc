@@ -48,7 +48,7 @@ Plugin 'christoomey/vim-tmux-runner'
 
 Plugin 'tpope/vim-obsession'
 
-"Plugin 'SirVer/ultisnips'
+Plugin 'SirVer/ultisnips'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -63,11 +63,12 @@ let g:instant_markdown_autostart = 0
 let g:instant_markdown_slow = 1
 
 " Trigger configuration. Do not use <tab> if you use
-"let g:UltiSnipsExpandTrigger="<tab>"
-"let g:UltiSnipsExpandTrigger="<tab>"
-"let g:UltiSnipsJumpForwardTrigger="<tab>"
-"let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-"let g:UltiSnipsSnippetDirectories=["tsesnips"]
+" - https://github.com/Valloric/YouCompleteMe
+" - https://github.com/nvim-lua/completion-nvim
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:UltiSnipsSnippetDirectories=["/Users/matt/Repos/cases/.snips/"]
 " If you want :UltiSnipsEdit to split your window.
 "let g:UltiSnipsEditSplit="vertical"
 
@@ -120,8 +121,10 @@ nnoremap <C-Y> :CtrlPTag<CR>
 
 vmap <C-x> :!pbcopy<CR>
 vmap <C-c> :w !pbcopy<CR><CR>
+vmap <C-v> :set paste<CR>:!pbpaste<CR>:set nopaste<CR>
 
-nmap <leader>ca ggVG
+nmap <leader>ca ggVG :w !pbcopy<CR><CR>
+nmap <leader>da ggVG d<insert>
 ":!pbcopy<CR>
 
 map <le der>rf :VtrSendFile<cr>
@@ -174,6 +177,8 @@ set statusline=%f%h%m%r
 " file linters
 nmap <Leader>axml :%!xmllint --format -<cr>
 nmap <leader>ajson :%!python -m json.tool<cr>
+" decoders
+nmap <leader>a64 :%!base64 -d<cr>
 
 " colors
 syntax enable
@@ -181,8 +186,8 @@ let g:solarized_termcolors=256
 "colorscheme solarized
 
 "====[ Make the 101st column stand out ]====================
-highlight ColorColumn ctermbg=magenta
-call matchadd('ColorColumn', '\%101v', 100)
+"highlight ColorColumn ctermbg=magenta
+"call matchadd('ColorColumn', '\%101v', 100)
 "===========================================================
 
 " Display extra whitespace
@@ -208,8 +213,8 @@ set ignorecase
 "let g:vim_markdown_folding_disabled = 1
 "let g:vim_markdown_folding_level = 1
 let g:vim_markdown_new_list_item_indent = 2
-"let g:vim_markdown_conceal=2
-"let g:vim_markdown_conceal_code_blocks=2
+let g:vim_markdown_conceal=1
+let g:vim_markdown_conceal_code_blocks=1
 
 autocmd Filetype help nmap <buffer> q :q<CR>
 
