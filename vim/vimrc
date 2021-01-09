@@ -131,6 +131,8 @@ map <le der>rf :VtrSendFile<cr>
 map <leader>rl :VtrSendLinesToRunner<cr>
 map <leader>ro :VtrOpenRunner<cr>
 map <leader>ra :VtrAttachToPane<cr>
+map <leader>rq :VtrSendCommandToRunner q<cr>
+map <leader>rd :VtrSendCtrlD<cr>
 let g:VtrStripLeadingWhitespace = 1
 let g:VtrClearEmptyLines = 1
 
