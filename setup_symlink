@@ -9,6 +9,3 @@ ln -s $DIR/tmux/tmux.conf ~/.tmux.conf
 ln -s $DIR/git/gitignore_global ~/.gitignore_global
 ln -s $DIR/git/gitconfig ~/.gitconfig
 ln -s $DIR/psql/psqlrc ~/.psqlrc
-for i in $(ls $DIR/bin/); do
-  ln -s $DIR/bin/$i ~/bin/$i
-done

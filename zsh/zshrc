@@ -49,6 +49,8 @@ alias tm='tmux'
 alias tmn='tmux new -s'	
 alias tma='tmux a -t'
 
-alias tenant_deploy='a0deploy import --config_file config.json --input_file tenant.yaml'
-alias tenant_backup='a0deploy export -c config.json -f yaml -o ./'
+#alias tenant_deploy='a0deploy import --config_file config.json --input_file tenant.yaml'
+alias tenant_deploy='a0deploy import -c config.json -f directory -i ./'
+#alias tenant_backup='a0deploy export -c config.json -f yaml -o ./'
+alias tenant_backup='a0deploy export -c config.json -f directory -o ./'
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi

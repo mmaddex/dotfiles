@@ -42,8 +42,6 @@ Plugin 'christianrondeau/vim-base64'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 
-Plugin 'suan/vim-instant-markdown', {'rtp': 'after'}
-
 Plugin 'christoomey/vim-tmux-runner'
 
 Plugin 'tpope/vim-obsession'
@@ -59,23 +57,18 @@ let g:auto_save = 1
 let g:auto_save_silent = 1
 let g:auto_save_events = ["InsertLeave", "TextChanged"]
 
-let g:instant_markdown_autostart = 0
-let g:instant_markdown_slow = 1
-
 " Trigger configuration. Do not use <tab> if you use
 " - https://github.com/Valloric/YouCompleteMe
 " - https://github.com/nvim-lua/completion-nvim
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-let g:UltiSnipsSnippetDirectories=["/Users/matt/Repos/cases/.snips/"]
+let g:UltiSnipsSnippetDirectories=["/Users/matt/Documents/cases/.snips/"]
 " If you want :UltiSnipsEdit to split your window.
 "let g:UltiSnipsEditSplit="vertical"
 
 
 let mapleader = "\<Space>"
-nmap <leader>p :InstantMarkdownPreview<cr>
-nmap <leader>ps :InstantMarkdownStop<cr>
 nmap <leader>vi :tabedit ~/.vimrc<cr>
 nmap <leader>al :tabedit ~/.oh-my-zsh/custom/aliases.zsh<cr>
 "TODO make this happen when this file is saved
@@ -125,6 +118,7 @@ vmap <C-v> :set paste<CR>:!pbpaste<CR>:set nopaste<CR>
 
 nmap <leader>ca ggVG :w !pbcopy<CR><CR>
 nmap <leader>da ggVG d<insert>
+nmap <leader>nm ggVG d<insert>m<tab><insert>
 ":!pbcopy<CR>
 
 map <le der>rf :VtrSendFile<cr>
